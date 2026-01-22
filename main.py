@@ -2,24 +2,22 @@ import requests
 import telebot, time
 from telebot import types
 from telebot.types import LabeledPrice
-from gatet import Tele  # تأكد أن ملف gatet.py موجود ومرفوع
+from gatet import Tele 
 import os
 import json
 from flask import Flask
 from threading import Thread
 
 # ==========================================
-# 1. إعدادات السيرفر (Koyeb Web Service)
-# هذا الجزء ضروري لكي يعمل البوت كـ Web Service
+# 1. إعدادات السيرفر
 # ==========================================
 app = Flask('')
 
 @app.route('/')
 def home():
-    return "<b>Telegram Bot is Running on Koyeb! 🚀</b>"
+    return "<b>Bot is Running... 🚀</b>"
 
 def run():
-    # Koyeb يحدد المنفذ تلقائياً عبر os.environ.get("PORT")
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
 
 def keep_alive():
@@ -27,13 +25,13 @@ def keep_alive():
     t.start()
 
 # ==========================================
-# 2. إعدادات البوت والتوكن
+# 2. إعدادات البوت
 # ==========================================
 
 TOKEN = '8305232757:AAF-rxugmGHIbpIqiGlWFO27jZGY9Uh4CtA' 
-ADMIN_ID = 7170023644  # الايدي الخاص بك لاستخدام أمر /give
+ADMIN_ID = 7170023644  # تأكد أن هذا هو الايدي الصحيح الخاص بك
 REQUIRED_CHANNEL = "@freecrunchyrollaccountt" 
-WELCOME_IMAGE_PATH = "welcome.jpg" # تأكد أن الصورة مرفوعة بهذا الاسم
+WELCOME_IMAGE_PATH = "welcome.jpg" 
 
 bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
 
@@ -191,7 +189,46 @@ def check_subscription(user_id):
     except Exception as e:
         return False
 
+# ================= MENUS =================
+def show_main_menu(chat_id, user_id, first_name, username_raw):
+    lang = get_lang(user_id)
+    t = TEXTS[lang]
+    points = get_points(user_id)
+    user_tag = f"(@{username_raw})" if username_raw else ""
+    
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    btn1 = types.InlineKeyboardButton(t["btn_dev"], url="https://t.me/aymen_1144")
+    btn2 = types.InlineKeyboardButton(t["btn_buy"], callback_data="buy_menu") 
+    btn3 = types.InlineKeyboardButton(t["btn_check"], callback_data="check_pts") # زر النقاط
+    btn4 = types.InlineKeyboardButton(t["btn_lang"], callback_data="change_lang") # زر اللغة
+    btn5 = types.InlineKeyboardButton(t["btn_cmds"], callback_data="show_cmds") 
+    
+    markup.add(btn1, btn2)
+    markup.add(btn3, btn4)
+    markup.add(btn5)
+    
+    caption = t["welcome"].format(name=first_name, username=user_tag, points=points)
+    
+    try:
+        with open(WELCOME_IMAGE_PATH, 'rb') as photo_file:
+             bot.send_photo(chat_id, photo_file, caption=caption, reply_markup=markup)
+    except:
+        bot.send_message(chat_id, caption, reply_markup=markup)
+
+def show_force_sub_message(chat_id, user_id):
+    lang = get_lang(user_id)
+    t = TEXTS[lang]
+    markup = types.InlineKeyboardMarkup()
+    channel_url = f"https://t.me/{REQUIRED_CHANNEL.replace('@','')}"
+    btn_join = types.InlineKeyboardButton(t["btn_join_channel"], url=channel_url)
+    btn_verify = types.InlineKeyboardButton(t["btn_verify_sub"], callback_data="verify_sub")
+    markup.add(btn_join)
+    markup.add(btn_verify)
+    bot.send_message(chat_id, t["must_join_msg"], reply_markup=markup)
+
 # ================= HANDLERS =================
+
+# 1. Start
 @bot.message_handler(commands=["start"])
 def start(message):
     user_id = message.from_user.id
@@ -211,38 +248,6 @@ def start(message):
         markup.add(btn_ar, btn_en)
         bot.send_message(message.chat.id, TEXTS["en"]["choose_lang"], reply_markup=markup)
 
-def show_main_menu(chat_id, user_id, first_name, username_raw):
-    lang = get_lang(user_id)
-    t = TEXTS[lang]
-    points = get_points(user_id)
-    user_tag = f"(@{username_raw})" if username_raw else ""
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    btn1 = types.InlineKeyboardButton(t["btn_dev"], url="https://t.me/aymen_1144")
-    btn2 = types.InlineKeyboardButton(t["btn_buy"], callback_data="buy_menu") 
-    btn3 = types.InlineKeyboardButton(t["btn_check"], callback_data="check_pts")
-    btn4 = types.InlineKeyboardButton(t["btn_lang"], callback_data="change_lang")
-    btn5 = types.InlineKeyboardButton(t["btn_cmds"], callback_data="show_cmds") 
-    markup.add(btn1, btn2)
-    markup.add(btn3, btn4)
-    markup.add(btn5)
-    caption = t["welcome"].format(name=first_name, username=user_tag, points=points)
-    try:
-        with open(WELCOME_IMAGE_PATH, 'rb') as photo_file:
-             bot.send_photo(chat_id, photo_file, caption=caption, reply_markup=markup)
-    except:
-        bot.send_message(chat_id, caption, reply_markup=markup)
-
-def show_force_sub_message(chat_id, user_id):
-    lang = get_lang(user_id)
-    t = TEXTS[lang]
-    markup = types.InlineKeyboardMarkup()
-    channel_url = f"https://t.me/{REQUIRED_CHANNEL.replace('@','')}"
-    btn_join = types.InlineKeyboardButton(t["btn_join_channel"], url=channel_url)
-    btn_verify = types.InlineKeyboardButton(t["btn_verify_sub"], callback_data="verify_sub")
-    markup.add(btn_join)
-    markup.add(btn_verify)
-    bot.send_message(chat_id, t["must_join_msg"], reply_markup=markup)
-
 @bot.callback_query_handler(func=lambda call: call.data == 'verify_sub')
 def verify_sub_callback(call):
     user_id = call.from_user.id
@@ -254,7 +259,83 @@ def verify_sub_callback(call):
     else:
         bot.answer_callback_query(call.id, TEXTS[lang]["sub_not_found"], show_alert=True)
 
-# ---------------- COMMANDS & PAYMENTS ----------------
+# 2. أزرار القائمة (اللغة + النقاط) - تم الإصلاح
+@bot.callback_query_handler(func=lambda call: call.data == 'change_lang')
+def change_lang_btn(call):
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    btn_ar = types.InlineKeyboardButton("العربية 🇩🇿", callback_data="set_lang_ar")
+    btn_en = types.InlineKeyboardButton("English 🇺🇸", callback_data="set_lang_en")
+    markup.add(btn_ar, btn_en)
+    bot.send_message(call.message.chat.id, TEXTS["en"]["choose_lang"], reply_markup=markup)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'check_pts')
+def check_points_btn(call):
+    try:
+        lang = get_lang(call.from_user.id)
+        pts = get_points(call.from_user.id)
+        # إظهار رسالة منبثقة (Pop-up)
+        bot.answer_callback_query(call.id, show_alert=True, text=TEXTS[lang]["points_msg"].format(pts=pts))
+    except Exception as e:
+        print(f"Error checking points: {e}")
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith('set_lang_'))
+def language_selection(call):
+    lang_code = call.data.split("_")[2]
+    set_lang(call.from_user.id, lang_code)
+    bot.delete_message(call.message.chat.id, call.message.message_id)
+    show_main_menu(call.message.chat.id, call.from_user.id, call.from_user.first_name, call.from_user.username)
+
+# 3. قائمة الأوامر (تظهر give للمطور فقط)
+@bot.message_handler(commands=["cmds", "help"])
+def commands_handler(message):
+    user_id = message.from_user.id
+    if not check_subscription(user_id):
+        show_force_sub_message(message.chat.id, user_id)
+        return
+    
+    lang = get_lang(user_id)
+    msg_text = TEXTS[lang]["cmds_msg"]
+    
+    # التحقق: هل المستخدم هو المطور؟
+    if user_id == ADMIN_ID:
+        admin_txt = "\n\n👮‍♂️ <b>أوامر المطور (لك فقط):</b>\n⚡ <b>/give ID POINTS</b>\n➜ لإضافة نقاط لأي مستخدم."
+        if lang == "en":
+            admin_txt = "\n\n👮‍♂️ <b>Dev Commands (Only you):</b>\n⚡ <b>/give ID POINTS</b>\n➜ To add points to a user."
+        msg_text += admin_txt
+        
+    bot.reply_to(message, msg_text)
+
+@bot.callback_query_handler(func=lambda call: call.data == 'show_cmds')
+def show_cmds_callback(call):
+    user_id = call.from_user.id
+    lang = get_lang(user_id)
+    t = TEXTS[lang]
+    
+    msg_text = t["cmds_msg"]
+    
+    # نفس التحقق للمطور في الزر أيضاً
+    if user_id == ADMIN_ID:
+        admin_txt = "\n\n👮‍♂️ <b>أوامر المطور:</b>\n⚡ <b>/give ID POINTS</b>\n➜ لإضافة نقاط."
+        if lang == "en":
+            admin_txt = "\n\n👮‍♂️ <b>Dev Commands:</b>\n⚡ <b>/give ID POINTS</b>\n➜ To add points."
+        msg_text += admin_txt
+
+    markup = types.InlineKeyboardMarkup()
+    btn_back = types.InlineKeyboardButton(t["btn_back"], callback_data="back_to_main")
+    markup.add(btn_back)
+    
+    try:
+        bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=msg_text, reply_markup=markup)
+    except:
+        try:
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=msg_text, reply_markup=markup)
+        except: pass
+
+@bot.callback_query_handler(func=lambda call: call.data == 'back_to_main')
+def back_to_main_callback(call):
+    show_main_menu(call.message.chat.id, call.from_user.id, call.from_user.first_name, call.from_user.username)
+
+# 4. الشراء والدفع
 @bot.callback_query_handler(func=lambda call: call.data == 'buy_menu')
 def show_buy_menu(call):
     lang = get_lang(call.from_user.id)
@@ -316,54 +397,34 @@ def got_payment(message):
             bot.send_message(ADMIN_ID, f"💰 <b>عملية شراء!</b>\n👤 {user_tag}\n⭐️ {amount_paid} Stars\n💎 {points_to_add} Pts")
         except: pass
 
-@bot.message_handler(commands=["cmds", "help"])
-def commands_handler(message):
+# 5. أمر إضافة النقاط (يعمل فقط للمطور)
+@bot.message_handler(commands=["give"])
+def give_cmd(message):
+    if message.from_user.id != ADMIN_ID: return
+    parts = message.text.split()
+    if len(parts) != 3:
+        bot.reply_to(message, "Usage: /give user_id points")
+        return
+    try:
+        uid = int(parts[1]); pts = int(parts[2])
+        add_points(uid, pts)
+        bot.reply_to(message, f"✅ Done. Added {pts} points to {uid}")
+    except: bot.reply_to(message, "Error in format.")
+
+@bot.message_handler(commands=["points"])
+def points_cmd(message):
     if not check_subscription(message.from_user.id):
         show_force_sub_message(message.chat.id, message.from_user.id)
         return
     lang = get_lang(message.from_user.id)
-    bot.reply_to(message, TEXTS[lang]["cmds_msg"])
+    pts = get_points(message.from_user.id)
+    bot.reply_to(message, TEXTS[lang]["points_msg"].format(pts=pts))
 
-@bot.callback_query_handler(func=lambda call: call.data == 'show_cmds')
-def show_cmds_callback(call):
-    lang = get_lang(call.from_user.id)
-    t = TEXTS[lang]
-    markup = types.InlineKeyboardMarkup()
-    btn_back = types.InlineKeyboardButton(t["btn_back"], callback_data="back_to_main")
-    markup.add(btn_back)
-    try:
-        bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=t["cmds_msg"], reply_markup=markup)
-    except:
-        try:
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=t["cmds_msg"], reply_markup=markup)
-        except: pass
+@bot.callback_query_handler(func=lambda call: call.data == 'stop')
+def menu_callback(call):
+    with open("stop.stop", "w") as file: pass
 
-@bot.callback_query_handler(func=lambda call: call.data == 'back_to_main')
-def back_to_main_callback(call):
-    user_id = call.from_user.id
-    lang = get_lang(user_id)
-    t = TEXTS[lang]
-    points = get_points(user_id)
-    username_raw = call.from_user.username
-    user_tag = f"(@{username_raw})" if username_raw else ""
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    btn1 = types.InlineKeyboardButton(t["btn_dev"], url="https://t.me/aymen_1144")
-    btn2 = types.InlineKeyboardButton(t["btn_buy"], callback_data="buy_menu") 
-    btn3 = types.InlineKeyboardButton(t["btn_check"], callback_data="check_pts")
-    btn4 = types.InlineKeyboardButton(t["btn_lang"], callback_data="change_lang")
-    btn5 = types.InlineKeyboardButton(t["btn_cmds"], callback_data="show_cmds") 
-    markup.add(btn1, btn2)
-    markup.add(btn3, btn4)
-    markup.add(btn5)
-    caption = t["welcome"].format(name=call.from_user.first_name, username=user_tag, points=points)
-    try:
-        bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=caption, reply_markup=markup)
-    except:
-        try:
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=caption, reply_markup=markup)
-        except:
-            show_main_menu(call.message.chat.id, user_id, call.from_user.first_name, username_raw)
-
+# 6. الفحص (Main Logic)
 @bot.message_handler(commands=["chk"])
 def single_check_handler(message):
     user_id = message.from_user.id
@@ -425,32 +486,6 @@ def single_check_handler(message):
     except Exception as e:
         print(f"Error in single check: {e}")
         bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text="❌ Error checking card.")
-
-@bot.message_handler(commands=["points"])
-def points_cmd(message):
-    if not check_subscription(message.from_user.id):
-        show_force_sub_message(message.chat.id, message.from_user.id)
-        return
-    lang = get_lang(message.from_user.id)
-    pts = get_points(message.from_user.id)
-    bot.reply_to(message, TEXTS[lang]["points_msg"].format(pts=pts))
-
-@bot.message_handler(commands=["give"])
-def give_cmd(message):
-    if message.from_user.id != ADMIN_ID: return
-    parts = message.text.split()
-    if len(parts) != 3:
-        bot.reply_to(message, "Usage: /give user_id points")
-        return
-    try:
-        uid = int(parts[1]); pts = int(parts[2])
-        add_points(uid, pts)
-        bot.reply_to(message, f"✅ Done. Added {pts} points to {uid}")
-    except: bot.reply_to(message, "Error in format.")
-
-@bot.callback_query_handler(func=lambda call: call.data == 'stop')
-def menu_callback(call):
-    with open("stop.stop", "w") as file: pass
 
 @bot.message_handler(content_types=["document"])
 def main(message):
