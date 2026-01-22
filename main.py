@@ -27,7 +27,7 @@ def keep_alive():
 
 TOKEN = '8305232757:AAF-rxugmGHIbpIqiGlWFO27jZGY9Uh4CtA' 
 ADMIN_ID = 7170023644  # ايديك (المطور) لاستخدام أمر give
-REQUIRED_CHANNEL = "@freecrunchyrollaccountt" 
+REQUIRED_CHANNEL = "@dailydroppp" 
 WELCOME_IMAGE_PATH = "welcome.jpg" 
 
 bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
