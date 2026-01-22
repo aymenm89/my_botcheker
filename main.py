@@ -2,33 +2,38 @@ import requests
 import telebot, time
 from telebot import types
 from telebot.types import LabeledPrice
-from gatet import Tele  # هام: هذا يستدعي ملف gatet.py
+from gatet import Tele  # تأكد أن ملف gatet.py موجود ومرفوع
 import os
 import json
 from flask import Flask
 from threading import Thread
 
+# ==========================================
+# 1. إعدادات السيرفر (Koyeb Web Service)
+# هذا الجزء ضروري لكي يعمل البوت كـ Web Service
+# ==========================================
 app = Flask('')
 
 @app.route('/')
 def home():
-    return "<b>I am alive! Bot is running... ✅</b>"
+    return "<b>Telegram Bot is Running on Koyeb! 🚀</b>"
 
 def run():
-    app.run(host='0.0.0.0', port=8080)
+    # Koyeb يحدد المنفذ تلقائياً عبر os.environ.get("PORT")
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
 
 def keep_alive():
     t = Thread(target=run)
     t.start()
 
 # ==========================================
-# 2. إعدادات البوت
+# 2. إعدادات البوت والتوكن
 # ==========================================
 
 TOKEN = '8305232757:AAF-rxugmGHIbpIqiGlWFO27jZGY9Uh4CtA' 
-ADMIN_ID = 7170023644  # ايديك (المطور) لاستخدام أمر give
-REQUIRED_CHANNEL = "@dailydroppp" 
-WELCOME_IMAGE_PATH = "welcome.jpg" 
+ADMIN_ID = 7170023644  # الايدي الخاص بك لاستخدام أمر /give
+REQUIRED_CHANNEL = "@freecrunchyrollaccountt" 
+WELCOME_IMAGE_PATH = "welcome.jpg" # تأكد أن الصورة مرفوعة بهذا الاسم
 
 bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
 
@@ -421,31 +426,6 @@ def single_check_handler(message):
         print(f"Error in single check: {e}")
         bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text="❌ Error checking card.")
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith('set_lang_'))
-def language_selection(call):
-    if not check_subscription(call.from_user.id):
-         bot.delete_message(call.message.chat.id, call.message.message_id)
-         show_force_sub_message(call.message.chat.id, call.from_user.id)
-         return
-    lang_code = call.data.split("_")[2]
-    set_lang(call.from_user.id, lang_code)
-    bot.delete_message(call.message.chat.id, call.message.message_id)
-    show_main_menu(call.message.chat.id, call.from_user.id, call.from_user.first_name, call.from_user.username)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'change_lang')
-def change_lang_btn(call):
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    btn_ar = types.InlineKeyboardButton("العربية 🇩🇿", callback_data="set_lang_ar")
-    btn_en = types.InlineKeyboardButton("English 🇺🇸", callback_data="set_lang_en")
-    markup.add(btn_ar, btn_en)
-    bot.send_message(call.message.chat.id, TEXTS["en"]["choose_lang"], reply_markup=markup)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'check_pts')
-def check_points_btn(call):
-    lang = get_lang(call.from_user.id)
-    pts = get_points(call.from_user.id)
-    bot.answer_callback_query(call.id, show_alert=True, text=TEXTS[lang]["points_msg"].format(pts=pts))
-
 @bot.message_handler(commands=["points"])
 def points_cmd(message):
     if not check_subscription(message.from_user.id):
@@ -455,9 +435,6 @@ def points_cmd(message):
     pts = get_points(message.from_user.id)
     bot.reply_to(message, TEXTS[lang]["points_msg"].format(pts=pts))
 
-# ==========================================
-# 3. أمر إضافة النقاط (الخاص بالمطور)
-# ==========================================
 @bot.message_handler(commands=["give"])
 def give_cmd(message):
     if message.from_user.id != ADMIN_ID: return
@@ -571,6 +548,6 @@ def main(message):
     bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text='✅ CHECK COMPLETED | انتهى الفحص\n🤖 DEV: @aymen_1144')
 
 if __name__ == "__main__":
-    print("🤖 Bot started on Replit...")
-    keep_alive() # تشغيل السيرفر الوهمي هنا لكي لا يتوقف البوت
+    print("🤖 Bot started on Koyeb...")
+    keep_alive() 
     bot.infinity_polling(timeout=10, long_polling_timeout=5)
