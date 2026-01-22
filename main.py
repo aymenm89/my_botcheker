@@ -43,122 +43,121 @@ LANG_FILE = "users_lang.json"
 TEXTS = {
     "ar": {
         "welcome": """
-✨ <b>أهلاً بك {name} {vip_badge} 👋</b>
+✨ <b>أهلاً بك عزيزي {name} {username} {vip_badge} 👋</b>
 
-🤖 <b>بوت فحص البطاقات (VIP)</b>
+🤖 <b>Credit Card Checker</b>
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــ
-💎 <b>النقاط:</b> <code>{points}</code>
-⏳ <b>الحالة:</b> {vip_status}
+✅ <b>البوت الأفضل لفحص الكومبو واستخراج البطاقات الصالحة.</b>
 
-👇 <b>اختر من القائمة:</b>
+💎 <b>رصيدك:</b> <code>{points}</code> نقطة
+⏳ <b>حالة الاشتراك:</b> {vip_status}
+
+👇 <b>اختر من القائمة الرئيسية:</b>
 """,
-        # تصميم البطاقة البنكية للبروفايل
-        "profile_card": """
-<b>👤 ملفك الشخصي (VIP Card):</b>
-<code>
-╭───────────────────────╮
-│  💳  MEMBER CARD      │
-│                       │
-│  👤 {name}
-│  🆔 {id}
-│  💎 Pts: {points}
-│  ⏳ Exp: {vip_date}
-╰───────────────────────╯
-</code>
+        "profile_msg": """
+👤 <b>ملفك الشخصي:</b>
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+🆔 <b>الآيدي:</b> <code>{id}</code>
+👤 <b>الاسم:</b> {name} {vip_badge}
+💎 <b>النقاط:</b> <code>{points}</code>
+
+🌟 <b>حالة الـ VIP:</b>
+{vip_status_full}
 """,
         "btn_dev": "المطور 👨‍💻",
         "btn_buy": "شراء (نقاط/VIP) 💎",
-        "btn_check": "رصيدي 💳",
+        "btn_check": "رصيدي 💰",
         "btn_lang": "Language 🌐",
         "btn_cmds": "الأوامر 📜",
         "btn_back": "رجوع 🔙",
-        "wait": "<b>جاري تحليل الملف... 📂</b>",
-        "no_points": "⛔ <b>عذراً، رصيدك نفذ!</b>\nاشترِ نقاطاً أو اشترك في VIP.",
+        "wait": "<b>جاري البدء... يرجى الانتظار ⌛</b>",
+        "no_points": "⛔ <b>عذراً، رصيدك غير كافٍ وليس لديك اشتراك VIP!</b>\nاشترِ نقاطاً أو اشترك في VIP.",
         "stop": "إيقاف الفحص 🛑",
-        "choose_lang": "<b>Please choose language:</b>",
-        "must_join_msg": f"⛔ <b>تنبيه</b>\nيجب الاشتراك في القناة أولاً: {REQUIRED_CHANNEL}",
-        "btn_join_channel": "اشتراك 📢",
-        "btn_verify_sub": "تحقق ✅",
-        "sub_not_found": "❌ لم تشترك بعد!",
-        "sub_confirmed": "✅ تم التحقق!",
-        "cmds_msg": "📜 <b>الأوامر:</b> /chk, /points, /start",
-        "chk_usage": "⚠️ <b>خطأ!</b> استخدم:\n<code>/chk CC|MM|YY|CVV</code>",
-        "processing_one": "⚡ <b>جاري المعالجة...</b>",
-        "buy_menu_title": "💎 <b>المتجر</b>",
-        "btn_buy_points": "شراء نقاط 🔢",
-        "btn_buy_vip": "اشتراك VIP ⏳",
-        "vip_title": "👑 <b>باقات VIP</b>",
-        "points_title": "🔢 <b>باقات النقاط</b>",
-        "buy_success_pts": "✅ <b>تم الشراء!</b> أضيفت {amount} نقطة.",
-        "buy_success_vip": "✅ <b>مبروك VIP! 👑</b>\nالمدة: {hours} ساعة.",
-        "btn_contact": "الدعم الفني 👨‍💻",
+        "choose_lang": "<b>Please choose your language:\nالرجاء اختيار لغتك لبدء الاستخدام:</b>",
+        "must_join_msg": f"⛔ <b>عذراً عزيزي</b>\n\nيجب عليك الاشتراك في قناة المطور أولاً لاستخدام البوت.\n\nاشترك ثم اضغط على زر <b>'تحقق من الاشتراك'</b>.",
+        "btn_join_channel": "اشتراك في القناة 📢",
+        "btn_verify_sub": "✅ تحقق من الاشتراك",
+        "sub_not_found": "❌ لم تقم بالاشتراك في القناة بعد. حاول مجدداً.",
+        "sub_confirmed": "✅ تم التحقق من اشتراكك. أهلاً بك!",
+        "cmds_msg": "📜 <b>الأوامر المتاحة:</b>\n/start, /points, /chk ...",
+        "chk_usage": "⚠️ <b>طريقة الاستخدام خطأ!</b>\nأرسل الأمر مع البطاقة هكذا:\n<code>/chk XXXXXXXXXXXXXXXX|MM|YY|CVV</code>",
+        "processing_one": "⚡ <b>جاري فحص البطاقة...</b>\n<code>{cc}</code>",
+        "buy_menu_title": "💎 <b>قائمة الشراء</b>\nاختر نوع الشراء المناسب لك:",
+        "btn_buy_points": "شراء نقاط (بالعدد) 🔢",
+        "btn_buy_vip": "اشتراك VIP (بالوقت) ⏳",
+        "vip_title": "👑 <b>اشتراكات VIP</b>\nافحص بدون خصم نقاط طوال مدة الاشتراك!",
+        "points_title": "🔢 <b>باقات النقاط</b>\nتدفع مرة واحدة وتبقى النقاط معك للأبد.",
+        "buy_success_pts": "✅ <b>تم الدفع بنجاح!</b>\nتمت إضافة <code>{amount}</code> نقطة.",
+        "buy_success_vip": "✅ <b>تم تفعيل VIP بنجاح! 👑</b>\nمدتة: {hours} ساعة.\nينتهي في: {date}",
+        "btn_contact": "تواصل مع المطور 👨‍💻",
+        # VIP Packages
         "vip_1h": "1 ساعة (100 ⭐️)",
         "vip_1d": "1 يوم (500 ⭐️) 🔥",
-        "vip_1w": "1 أسبوع (2000 ⭐️)",
+        "vip_1w": "1 أسبوع (2000 ⭐️) 🏷",
+        # Points Packages
         "pts_100": "100 نقطة (50 ⭐️)",
         "pts_200": "200 نقطة (75 ⭐️)",
         "pts_500": "500 نقطة (150 ⭐️)"
     },
     "en": {
         "welcome": """
-✨ <b>Welcome {name} {vip_badge} 👋</b>
+✨ <b>Welcome Dear {name} {username} {vip_badge} 👋</b>
 
-🤖 <b>CC Checker Bot (VIP)</b>
+🤖 <b>Credit Card Checker</b>
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــ
-💎 <b>Points:</b> <code>{points}</code>
+✅ <b>Best bot for checking combos.</b>
+
+💎 <b>Balance:</b> <code>{points}</code> Points
 ⏳ <b>Status:</b> {vip_status}
 
-👇 <b>Select Option:</b>
+👇 <b>Select from menu:</b>
 """,
-        "profile_card": """
-<b>👤 Your Profile (VIP Card):</b>
-<code>
-╭───────────────────────╮
-│  💳  MEMBER CARD      │
-│                       │
-│  👤 {name}
-│  🆔 {id}
-│  💎 Pts: {points}
-│  ⏳ Exp: {vip_date}
-╰───────────────────────╯
-</code>
+        "profile_msg": """
+👤 <b>Your Profile:</b>
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+🆔 <b>ID:</b> <code>{id}</code>
+👤 <b>Name:</b> {name} {vip_badge}
+💎 <b>Points:</b> <code>{points}</code>
+
+🌟 <b>VIP Status:</b>
+{vip_status_full}
 """,
         "btn_dev": "Developer 👨‍💻",
-        "btn_buy": "Buy (Pts/VIP) 💎",
-        "btn_check": "Balance 💳",
+        "btn_buy": "Buy (Points/VIP) 💎",
+        "btn_check": "Profile 💰",
         "btn_lang": "اللغة 🌐",
         "btn_cmds": "Commands 📜",
         "btn_back": "Back 🔙",
-        "wait": "<b>Analyzing File... 📂</b>",
-        "no_points": "⛔ <b>No Balance!</b>\nBuy points or VIP.",
-        "stop": "STOP 🛑",
-        "choose_lang": "<b>Please choose language:</b>",
-        "must_join_msg": f"⛔ <b>Alert</b>\nJoin channel first: {REQUIRED_CHANNEL}",
-        "btn_join_channel": "Join 📢",
-        "btn_verify_sub": "Verify ✅",
-        "sub_not_found": "❌ Not subscribed!",
-        "sub_confirmed": "✅ Verified!",
-        "cmds_msg": "📜 <b>Cmds:</b> /chk, /points, /start",
-        "chk_usage": "⚠️ <b>Error!</b> Use:\n<code>/chk CC|MM|YY|CVV</code>",
-        "processing_one": "⚡ <b>Processing...</b>",
-        "buy_menu_title": "💎 <b>Store</b>",
-        "btn_buy_points": "Buy Points 🔢",
-        "btn_buy_vip": "Buy VIP ⏳",
-        "vip_title": "👑 <b>VIP Packs</b>",
-        "points_title": "🔢 <b>Points Packs</b>",
-        "buy_success_pts": "✅ <b>Purchased!</b> Added {amount} pts.",
-        "buy_success_vip": "✅ <b>VIP Activated! 👑</b>\nTime: {hours} hours.",
-        "btn_contact": "Support 👨‍💻",
+        "wait": "<b>Starting... Please wait ⌛</b>",
+        "no_points": "⛔ <b>Insufficient points & No VIP!</b>\nBuy points or subscribe to VIP.",
+        "stop": "STOP CHECK 🛑",
+        "choose_lang": "<b>Please choose your language:\nالرجاء اختيار لغتك لبدء الاستخدام:</b>",
+        "must_join_msg": f"⛔ <b>Sorry Dear</b>\n\nYou must subscribe to the developer's channel first to use the bot.\n\nSubscribe and then press <b>'Verify Subscription'</b>.",
+        "btn_join_channel": "Join Channel 📢",
+        "btn_verify_sub": "✅ Verify Subscription",
+        "sub_not_found": "❌ You haven't subscribed yet. Please try again.",
+        "sub_confirmed": "✅ Subscription verified. Welcome!",
+        "cmds_msg": "📜 <b>Commands:</b>\n/start, /points, /chk ...",
+        "chk_usage": "⚠️ <b>Wrong Usage!</b>\nUse command like this:\n<code>/chk XXXXXXXXXXXXXXXX|MM|YY|CVV</code>",
+        "processing_one": "⚡ <b>Checking card...</b>\n<code>{cc}</code>",
+        "buy_menu_title": "💎 <b>Purchase Menu</b>\nChoose check type:",
+        "btn_buy_points": "Buy Points (Count) 🔢",
+        "btn_buy_vip": "Subscribe VIP (Time) ⏳",
+        "vip_title": "👑 <b>VIP Subscriptions</b>\nCheck unlimited without points!",
+        "points_title": "🔢 <b>Points Packages</b>\nPay once, keep points forever.",
+        "buy_success_pts": "✅ <b>Payment Successful!</b>\nAdded <code>{amount}</code> points.",
+        "buy_success_vip": "✅ <b>VIP Activated! 👑</b>\nDuration: {hours} Hours.\nExpires: {date}",
+        "btn_contact": "Contact Developer 👨‍💻",
         "vip_1h": "1 Hour (100 ⭐️)",
         "vip_1d": "1 Day (500 ⭐️) 🔥",
-        "vip_1w": "1 Week (2000 ⭐️)",
-        "pts_100": "100 Pts (50 ⭐️)",
-        "pts_200": "200 Pts (75 ⭐️)",
-        "pts_500": "500 Pts (150 ⭐️)"
+        "vip_1w": "1 Week (2000 ⭐️) 🏷",
+        "pts_100": "100 Points (50 ⭐️)",
+        "pts_200": "200 Points (75 ⭐️)",
+        "pts_500": "500 Points (150 ⭐️)"
     }
 }
 
-# ================= DATA & HELPER FUNCTIONS =================
+# ================= DATA FUNCTIONS (SMART) =================
 def load_json(filename):
     if os.path.exists(filename):
         with open(filename, "r") as f:
@@ -170,20 +169,27 @@ def save_json(filename, data):
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
 
+# دالة ذكية تجلب البيانات وتحول المستخدمين القدامى للنظام الجديد
 def get_user_data(user_id):
     data = load_json(USERS_FILE)
     uid = str(user_id)
-    if uid not in data: return {"points": 0, "vip_expire": 0}
-    if isinstance(data[uid], int): # Fix old data
+    if uid not in data:
+        return {"points": 0, "vip_expire": 0}
+    
+    # تحويل البيانات القديمة (int) إلى النظام الجديد (dict)
+    if isinstance(data[uid], int):
         new_data = {"points": data[uid], "vip_expire": 0}
         data[uid] = new_data
         save_json(USERS_FILE, data)
         return new_data
+        
     return data.get(uid, {"points": 0, "vip_expire": 0})
 
 def update_user_data(user_id, points=0, vip_hours=0):
     data = load_json(USERS_FILE)
     uid = str(user_id)
+    
+    # التأكد من التنسيق
     if uid not in data or isinstance(data[uid], int):
         current_pts = data.get(uid, 0) if isinstance(data.get(uid), int) else 0
         current_vip = 0
@@ -191,14 +197,19 @@ def update_user_data(user_id, points=0, vip_hours=0):
         current_pts = data[uid].get("points", 0)
         current_vip = data[uid].get("vip_expire", 0)
     
+    # تحديث النقاط
     new_points = current_pts + points
     if new_points < 0: new_points = 0
     
+    # تحديث الـ VIP
     new_vip = current_vip
     if vip_hours > 0:
         now = time.time()
-        if current_vip > now: new_vip = current_vip + (vip_hours * 3600)
-        else: new_vip = now + (vip_hours * 3600)
+        # إذا كان مشتركاً بالفعل، نضيف الوقت على وقته الحالي
+        if current_vip > now:
+            new_vip = current_vip + (vip_hours * 3600)
+        else:
+            new_vip = now + (vip_hours * 3600)
             
     data[uid] = {"points": new_points, "vip_expire": new_vip}
     save_json(USERS_FILE, data)
@@ -209,7 +220,8 @@ def is_vip(user_id):
     return data["vip_expire"] > time.time()
 
 def get_lang(user_id):
-    return load_json(LANG_FILE).get(str(user_id), "en") 
+    data = load_json(LANG_FILE)
+    return data.get(str(user_id), "en") 
 
 def set_lang(user_id, lang_code):
     data = load_json(LANG_FILE)
@@ -218,16 +230,14 @@ def set_lang(user_id, lang_code):
 
 def check_subscription(user_id):
     try:
-        return bot.get_chat_member(REQUIRED_CHANNEL, user_id).status in ['creator', 'administrator', 'member']
-    except: return False
+        status = bot.get_chat_member(REQUIRED_CHANNEL, user_id).status
+        if status in ['creator', 'administrator', 'member']:
+            return True
+        return False
+    except Exception as e:
+        return False
 
-def get_progress_bar(current, total, length=10):
-    percent = (current / total) 
-    filled_length = int(length * percent)
-    bar = '█' * filled_length + '░' * (length - filled_length)
-    return f"[{bar}] {int(percent * 100)}%"
-
-# ================= MENU HANDLERS =================
+# ================= MENU FUNCTIONS =================
 def show_main_menu(chat_id, user_id, message_id=None):
     lang = get_lang(user_id)
     t = TEXTS[lang]
@@ -235,332 +245,386 @@ def show_main_menu(chat_id, user_id, message_id=None):
     points = user_data["points"]
     is_vip_bool = is_vip(user_id)
     
-    vip_badge = "👑" if is_vip_bool else ""
-    vip_status = "ACTIVE ✅" if is_vip_bool else "FREE ❌"
+    vip_badge = "👑 VIP" if is_vip_bool else ""
+    vip_status = "Active ✅" if is_vip_bool else "Free ❌"
+    if lang == "ar":
+        vip_status = "نشط ✅" if is_vip_bool else "مجاني ❌"
 
     try:
         user = bot.get_chat_member(chat_id, user_id).user
         first_name = user.first_name
         username_raw = user.username
-    except: first_name = "User"; username_raw = ""
+    except:
+        first_name = "User"
+        username_raw = ""
     user_tag = f"(@{username_raw})" if username_raw else ""
     
     markup = types.InlineKeyboardMarkup(row_width=2)
-    markup.add(
-        types.InlineKeyboardButton(t["btn_dev"], url="https://t.me/aymen_1144"),
-        types.InlineKeyboardButton(t["btn_buy"], callback_data="buy_main_menu"),
-        types.InlineKeyboardButton(t["btn_check"], callback_data="check_profile"),
-        types.InlineKeyboardButton(t["btn_lang"], callback_data="change_lang"),
-        types.InlineKeyboardButton(t["btn_cmds"], callback_data="show_cmds")
-    )
+    btn1 = types.InlineKeyboardButton(t["btn_dev"], url="https://t.me/aymen_1144")
+    btn2 = types.InlineKeyboardButton(t["btn_buy"], callback_data="buy_main_menu") 
+    btn3 = types.InlineKeyboardButton(t["btn_check"], callback_data="check_profile") 
+    btn4 = types.InlineKeyboardButton(t["btn_lang"], callback_data="change_lang") 
+    btn5 = types.InlineKeyboardButton(t["btn_cmds"], callback_data="show_cmds") 
+    
+    markup.add(btn1, btn2)
+    markup.add(btn3, btn4)
+    markup.add(btn5)
     
     caption = t["welcome"].format(name=first_name, username=user_tag, points=points, vip_badge=vip_badge, vip_status=vip_status)
     
     if message_id:
         try: bot.edit_message_caption(chat_id=chat_id, message_id=message_id, caption=caption, reply_markup=markup)
-        except: pass
+        except: pass # Ignore if same content
     else:
         try:
             with open(WELCOME_IMAGE_PATH, 'rb') as photo_file:
                  bot.send_photo(chat_id, photo_file, caption=caption, reply_markup=markup)
-        except: bot.send_message(chat_id, caption, reply_markup=markup)
+        except:
+            bot.send_message(chat_id, caption, reply_markup=markup)
 
 def show_force_sub_message(chat_id, user_id):
     lang = get_lang(user_id)
     t = TEXTS[lang]
     markup = types.InlineKeyboardMarkup()
-    markup.add(
-        types.InlineKeyboardButton(t["btn_join_channel"], url=f"https://t.me/{REQUIRED_CHANNEL.replace('@','')}"),
-        types.InlineKeyboardButton(t["btn_verify_sub"], callback_data="verify_sub")
-    )
+    channel_url = f"https://t.me/{REQUIRED_CHANNEL.replace('@','')}"
+    btn_join = types.InlineKeyboardButton(t["btn_join_channel"], url=channel_url)
+    btn_verify = types.InlineKeyboardButton(t["btn_verify_sub"], callback_data="verify_sub")
+    markup.add(btn_join)
+    markup.add(btn_verify)
     bot.send_message(chat_id, t["must_join_msg"], reply_markup=markup)
 
-# ================= CORE HANDLERS =================
+# ================= HANDLERS =================
+
 @bot.message_handler(commands=["start"])
 def start(message):
-    if not check_subscription(message.from_user.id):
-        show_force_sub_message(message.chat.id, message.from_user.id)
-        return
-    get_user_data(message.from_user.id) # Init data
-    show_main_menu(message.chat.id, message.from_user.id)
+    user_id = message.from_user.id
+    if not check_subscription(user_id):
+        show_force_sub_message(message.chat.id, user_id)
+        return 
+    # التأكد من وجود البيانات
+    get_user_data(user_id)
+    show_main_menu(message.chat.id, user_id)
 
 @bot.callback_query_handler(func=lambda call: call.data == 'verify_sub')
 def verify_sub_callback(call):
-    lang = get_lang(call.from_user.id)
-    if check_subscription(call.from_user.id):
+    user_id = call.from_user.id
+    lang = get_lang(user_id)
+    if check_subscription(user_id):
         bot.answer_callback_query(call.id, TEXTS[lang]["sub_confirmed"], show_alert=False)
         bot.delete_message(call.message.chat.id, call.message.message_id)
-        show_main_menu(call.message.chat.id, call.from_user.id)
+        show_main_menu(call.message.chat.id, user_id)
     else:
         bot.answer_callback_query(call.id, TEXTS[lang]["sub_not_found"], show_alert=True)
 
-# --- 1. PROFILE CARD (Credit Card Style) ---
+# 1. البروفايل (Profile)
 @bot.callback_query_handler(func=lambda call: call.data == 'check_profile')
 def check_profile_btn(call):
     user_id = call.from_user.id
     lang = get_lang(user_id)
     t = TEXTS[lang]
+    
     user_data = get_user_data(user_id)
+    points = user_data["points"]
+    vip_expire = user_data["vip_expire"]
     
-    # Format Expiry Date
-    if user_data["vip_expire"] > time.time():
-        vip_date = datetime.datetime.fromtimestamp(user_data["vip_expire"]).strftime('%d/%m/%y')
+    is_vip_bool = vip_expire > time.time()
+    vip_badge = "👑 VIP" if is_vip_bool else ""
+    
+    if is_vip_bool:
+        exp_date = datetime.datetime.fromtimestamp(vip_expire).strftime('%Y-%m-%d %H:%M')
+        vip_status_full = f"✅ Active until: {exp_date}"
+        if lang == "ar": vip_status_full = f"✅ نشط حتى: {exp_date}"
     else:
-        vip_date = "N/A"
+        vip_status_full = "❌ Not Active (Free)"
+        if lang == "ar": vip_status_full = "❌ غير نشط (مجاني)"
+
+    try:
+        user = bot.get_chat_member(call.message.chat.id, user_id).user
+        first_name = user.first_name
+        username = f"@{user.username}" if user.username else "None"
+    except:
+        first_name = "User"; username = "None"
     
-    # Clean Name for Card
-    name = call.from_user.first_name[:15] # Limit name length for card
-    
-    msg = t["profile_card"].format(name=name, id=user_id, points=user_data["points"], vip_date=vip_date)
+    msg = t["profile_msg"].format(name=first_name, username=username, id=user_id, points=points, vip_badge=vip_badge, vip_status_full=vip_status_full)
     
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton(t["btn_back"], callback_data="back_to_main"))
-    
+    btn_back = types.InlineKeyboardButton(t["btn_back"], callback_data="back_to_main")
+    markup.add(btn_back)
+
     try: bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=msg, reply_markup=markup)
     except: pass
 
+# 2. تغيير اللغة
 @bot.callback_query_handler(func=lambda call: call.data == 'change_lang')
 def change_lang_btn(call):
     markup = types.InlineKeyboardMarkup(row_width=2)
-    markup.add(
-        types.InlineKeyboardButton("العربية 🇩🇿", callback_data="set_lang_ar"),
-        types.InlineKeyboardButton("English 🇺🇸", callback_data="set_lang_en"),
-        types.InlineKeyboardButton(TEXTS[get_lang(call.from_user.id)]["btn_back"], callback_data="back_to_main")
-    )
+    btn_ar = types.InlineKeyboardButton("العربية 🇩🇿", callback_data="set_lang_ar")
+    btn_en = types.InlineKeyboardButton("English 🇺🇸", callback_data="set_lang_en")
+    btn_back = types.InlineKeyboardButton(TEXTS[get_lang(call.from_user.id)]["btn_back"], callback_data="back_to_main")
+    markup.add(btn_ar, btn_en)
+    markup.add(btn_back)
     try: bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=TEXTS["en"]["choose_lang"], reply_markup=markup)
     except: pass
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('set_lang_'))
 def language_selection(call):
-    set_lang(call.from_user.id, call.data.split("_")[2])
+    lang_code = call.data.split("_")[2]
+    set_lang(call.from_user.id, lang_code)
     show_main_menu(call.message.chat.id, call.from_user.id, message_id=call.message.message_id)
 
+# 3. الأوامر
 @bot.callback_query_handler(func=lambda call: call.data == 'show_cmds')
 def show_cmds_callback(call):
-    user_id = call.from_user.id; lang = get_lang(user_id); t = TEXTS[lang]
-    msg = t["cmds_msg"]
-    if user_id == ADMIN_ID: msg += "\n\n👮‍♂️ <b>Dev:</b>\n⚡ /give ID PTS\n⚡ /vip ID HOURS"
+    user_id = call.from_user.id
+    lang = get_lang(user_id)
+    t = TEXTS[lang]
+    msg_text = t["cmds_msg"]
+    if user_id == ADMIN_ID:
+        admin_txt = "\n\n👮‍♂️ <b>Dev:</b>\n⚡ <b>/give ID PTS</b>\n⚡ <b>/vip ID HOURS</b>"
+        msg_text += admin_txt
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton(t["btn_back"], callback_data="back_to_main"))
-    try: bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=msg, reply_markup=markup)
+    btn_back = types.InlineKeyboardButton(t["btn_back"], callback_data="back_to_main")
+    markup.add(btn_back)
+    try: bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=msg_text, reply_markup=markup)
     except: pass
 
 @bot.callback_query_handler(func=lambda call: call.data == 'back_to_main')
 def back_to_main_callback(call):
     show_main_menu(call.message.chat.id, call.from_user.id, message_id=call.message.message_id)
 
-# ================= PURCHASE SYSTEM =================
+# ================= PURCHASE SYSTEM (POINTS + VIP) =================
+
+# القائمة الرئيسية للشراء (اختيار بين نقاط او VIP)
 @bot.callback_query_handler(func=lambda call: call.data == 'buy_main_menu')
-def buy_main(call):
-    lang = get_lang(call.from_user.id); t = TEXTS[lang]
+def buy_main_menu_func(call):
+    lang = get_lang(call.from_user.id)
+    t = TEXTS[lang]
     markup = types.InlineKeyboardMarkup(row_width=1)
-    markup.add(
-        types.InlineKeyboardButton(t["btn_buy_vip"], callback_data="buy_vip_list"),
-        types.InlineKeyboardButton(t["btn_buy_points"], callback_data="buy_points_list"),
-        types.InlineKeyboardButton(t["btn_back"], callback_data="back_to_main")
-    )
+    btn_vip = types.InlineKeyboardButton(t["btn_buy_vip"], callback_data="buy_vip_list")
+    btn_pts = types.InlineKeyboardButton(t["btn_buy_points"], callback_data="buy_points_list")
+    btn_back = types.InlineKeyboardButton(t["btn_back"], callback_data="back_to_main")
+    markup.add(btn_vip, btn_pts, btn_back)
     try: bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=t["buy_menu_title"], reply_markup=markup)
     except: pass
 
+# قائمة اشتراكات VIP
 @bot.callback_query_handler(func=lambda call: call.data == 'buy_vip_list')
-def buy_vip(call):
-    lang = get_lang(call.from_user.id); t = TEXTS[lang]
+def buy_vip_list_func(call):
+    lang = get_lang(call.from_user.id)
+    t = TEXTS[lang]
     markup = types.InlineKeyboardMarkup(row_width=1)
-    markup.add(
-        types.InlineKeyboardButton(t["vip_1h"], callback_data="pay_vip_100_1"),
-        types.InlineKeyboardButton(t["vip_1d"], callback_data="pay_vip_500_24"),
-        types.InlineKeyboardButton(t["vip_1w"], callback_data="pay_vip_2000_168"),
-        types.InlineKeyboardButton(t["btn_back"], callback_data="buy_main_menu")
-    )
+    # الاسعار: 1 ساعة=100، 1 يوم=500، 1 اسبوع=2000
+    btn_1h = types.InlineKeyboardButton(t["vip_1h"], callback_data="pay_vip_100_1") # 100 stars, 1 hour
+    btn_1d = types.InlineKeyboardButton(t["vip_1d"], callback_data="pay_vip_500_24") # 500 stars, 24 hours
+    btn_1w = types.InlineKeyboardButton(t["vip_1w"], callback_data="pay_vip_2000_168") # 2000 stars, 168 hours
+    btn_back = types.InlineKeyboardButton(t["btn_back"], callback_data="buy_main_menu")
+    markup.add(btn_1h, btn_1d, btn_1w, btn_back)
     try: bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=t["vip_title"], reply_markup=markup)
     except: pass
 
+# قائمة شراء النقاط
 @bot.callback_query_handler(func=lambda call: call.data == 'buy_points_list')
-def buy_pts(call):
-    lang = get_lang(call.from_user.id); t = TEXTS[lang]
+def buy_points_list_func(call):
+    lang = get_lang(call.from_user.id)
+    t = TEXTS[lang]
     markup = types.InlineKeyboardMarkup(row_width=1)
-    markup.add(
-        types.InlineKeyboardButton(t["pts_100"], callback_data="pay_pts_50_100"),
-        types.InlineKeyboardButton(t["pts_200"], callback_data="pay_pts_75_200"),
-        types.InlineKeyboardButton(t["pts_500"], callback_data="pay_pts_150_500"),
-        types.InlineKeyboardButton(t["btn_back"], callback_data="buy_main_menu")
-    )
+    btn_100 = types.InlineKeyboardButton(t["pts_100"], callback_data="pay_pts_50_100")
+    btn_200 = types.InlineKeyboardButton(t["pts_200"], callback_data="pay_pts_75_200")
+    btn_500 = types.InlineKeyboardButton(t["pts_500"], callback_data="pay_pts_150_500")
+    btn_back = types.InlineKeyboardButton(t["btn_back"], callback_data="buy_main_menu")
+    markup.add(btn_100, btn_200, btn_500, btn_back)
     try: bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, caption=t["points_title"], reply_markup=markup)
     except: pass
 
+# معالج إرسال الفاتورة (للاثنين)
 @bot.callback_query_handler(func=lambda call: call.data.startswith('pay_'))
-def invoice(call):
-    parts = call.data.split('_'); type_ = parts[1]; stars = int(parts[2]); val = int(parts[3])
-    lang = get_lang(call.from_user.id); t = TEXTS[lang]
+def send_invoice_handler(call):
+    # Data formats: 
+    # pay_pts_STARS_POINTS (e.g., pay_pts_50_100)
+    # pay_vip_STARS_HOURS  (e.g., pay_vip_100_1)
     
-    if type_ == 'pts':
-        title = f"{val} Points"; desc = f"Add {val} points"; payload = f"pts_{val}_{call.from_user.id}"
+    data_parts = call.data.split('_')
+    buy_type = data_parts[1] # 'pts' or 'vip'
+    stars_amount = int(data_parts[2])
+    value_amount = int(data_parts[3]) # Points amount OR Hours count
+    
+    lang = get_lang(call.from_user.id)
+    t = TEXTS[lang]
+    
+    if buy_type == 'pts':
+        title = f"{value_amount} Points"
+        description = f"Buy {value_amount} Check Points"
+        payload = f"pts_{value_amount}_{call.from_user.id}"
     else:
-        title = f"VIP {val}h"; desc = f"VIP for {val} hours"; payload = f"vip_{val}_{call.from_user.id}"
-        
-    bot.send_invoice(call.message.chat.id, title=title, description=desc, invoice_payload=payload,
-                     provider_token="", currency="XTR", prices=[LabeledPrice(label=title, amount=stars)],
-                     start_parameter="buy")
+        title = f"VIP {value_amount} Hours"
+        description = f"VIP Subscription for {value_amount} Hours"
+        payload = f"vip_{value_amount}_{call.from_user.id}"
+
+    bot.send_invoice(
+        chat_id=call.message.chat.id,
+        title=title,
+        description=description,
+        invoice_payload=payload,
+        provider_token="", currency="XTR",
+        prices=[LabeledPrice(label=title, amount=stars_amount)],
+        start_parameter="buy"
+    )
 
 @bot.pre_checkout_query_handler(func=lambda query: True)
-def checkout(q): bot.answer_pre_checkout_query(q.id, ok=True)
+def checkout(pre_checkout_query):
+    bot.answer_pre_checkout_query(pre_checkout_query.id, ok=True)
 
 @bot.message_handler(content_types=['successful_payment'])
-def got_pay(message):
-    lang = get_lang(message.from_user.id); t = TEXTS[lang]
-    parts = message.successful_payment.invoice_payload.split('_')
+def got_payment(message):
+    lang = get_lang(message.from_user.id)
+    t = TEXTS[lang]
+    payment_info = message.successful_payment
+    amount_paid = payment_info.total_amount
+    payload = payment_info.invoice_payload
     
-    if parts[0] == 'pts':
-        update_user_data(message.from_user.id, points=int(parts[1]))
-        bot.reply_to(message, t["buy_success_pts"].format(amount=parts[1]))
+    parts = payload.split('_')
+    p_type = parts[0]
+    p_amount = int(parts[1])
+    
+    if p_type == 'pts':
+        # إضافة نقاط
+        update_user_data(message.from_user.id, points=p_amount)
+        bot.reply_to(message, t["buy_success_pts"].format(amount=p_amount))
+        admin_note = f"💎 {p_amount} Pts"
     else:
-        update_user_data(message.from_user.id, vip_hours=int(parts[1]))
-        bot.reply_to(message, t["buy_success_vip"].format(hours=parts[1]))
-        
-    try: bot.send_message(ADMIN_ID, f"💰 <b>Paid:</b> {message.from_user.first_name} | {parts[1]} {parts[0]}")
+        # تفعيل VIP
+        update_user_data(message.from_user.id, vip_hours=p_amount)
+        # حساب تاريخ الانتهاء للعرض
+        user_data = get_user_data(message.from_user.id)
+        exp_date = datetime.datetime.fromtimestamp(user_data["vip_expire"]).strftime('%Y-%m-%d %H:%M')
+        bot.reply_to(message, t["buy_success_vip"].format(hours=p_amount, date=exp_date))
+        admin_note = f"👑 VIP {p_amount} Hours"
+
+    try:
+        user_tag = f"@{message.from_user.username}" if message.from_user.username else message.from_user.first_name
+        bot.send_message(ADMIN_ID, f"💰 <b>شراء جديد!</b>\n👤 {user_tag}\n⭐️ {amount_paid} Stars\n📦 {admin_note}")
     except: pass
 
-# ================= ADMIN & CHECKING =================
-@bot.message_handler(commands=["give", "vip"])
-def admin_cmds(message):
+# 5. أوامر المطور (نقاط + VIP)
+@bot.message_handler(commands=["give"])
+def give_pts_cmd(message):
     if message.from_user.id != ADMIN_ID: return
     try:
-        cmd, uid, val = message.text.split()
-        if cmd == "/give":
-            update_user_data(int(uid), points=int(val))
-            bot.reply_to(message, f"✅ Given {val} pts to {uid}")
-        elif cmd == "/vip":
-            update_user_data(int(uid), vip_hours=int(val))
-            bot.reply_to(message, f"✅ Given {val}h VIP to {uid}")
-    except: bot.reply_to(message, "Error. Usage: /give ID PTS or /vip ID HOURS")
+        # /give ID POINTS
+        parts = message.text.split()
+        uid = int(parts[1]); pts = int(parts[2])
+        update_user_data(uid, points=pts)
+        bot.reply_to(message, f"✅ Done. Added {pts} points to {uid}")
+    except: bot.reply_to(message, "Usage: /give ID POINTS")
 
-# --- 2. RECEIPT STYLE (Single Check) ---
+@bot.message_handler(commands=["vip"])
+def give_vip_cmd(message):
+    if message.from_user.id != ADMIN_ID: return
+    try:
+        # /vip ID HOURS
+        parts = message.text.split()
+        uid = int(parts[1]); hours = int(parts[2])
+        update_user_data(uid, vip_hours=hours)
+        bot.reply_to(message, f"✅ Done. Added {hours} VIP hours to {uid}")
+    except: bot.reply_to(message, "Usage: /vip ID HOURS")
+
+# 6. الفحص (Check Logic Updated)
 @bot.message_handler(commands=["chk"])
-def chk_single(message):
-    uid = message.from_user.id
-    if not check_subscription(uid):
-        show_force_sub_message(message.chat.id, uid)
+def single_check_handler(message):
+    user_id = message.from_user.id
+    if not check_subscription(user_id):
+        show_force_sub_message(message.chat.id, user_id)
         return
     
-    lang = get_lang(uid); t = TEXTS[lang]
-    user_data = get_user_data(uid)
-    is_vip_bool = user_data["vip_expire"] > time.time()
+    lang = get_lang(user_id)
+    t = TEXTS[lang]
     
-    if not is_vip_bool and user_data["points"] < 1:
+    # التحقق من الرصيد والاشتراك
+    user_data = get_user_data(user_id)
+    is_vip_bool = user_data["vip_expire"] > time.time()
+    points = user_data["points"]
+    
+    # الشرط: يجب أن يكون VIP أو لديه نقاط > 0
+    if not is_vip_bool and points < 1:
         bot.reply_to(message, t["no_points"])
         return
 
-    try: cc = message.text.split(" ", 1)[1]
-    except: 
+    try: cc_data = message.text.split(" ", 1)[1]
+    except IndexError:
         bot.reply_to(message, t["chk_usage"])
         return
-        
-    ko = bot.reply_to(message, t["processing_one"]).message_id
-    if not is_vip_bool: update_user_data(uid, points=-1)
-    
-    try:
-        try: req = requests.get('https://bins.antipublic.cc/bins/'+cc[:6]).json()
-        except: req = {}
-        bank = req.get('bank', 'N/A')
-        
-        # Tele check
-        res = str(Tele(cc))
-        
-        status = "DECLINED ❌"
-        if 'Approved' in res or 'Succeeded' in res: status = "APPROVED ✅"
-        elif 'Insufficient' in res: status = "LOW FUNDS ⚠️"
-        
-        vip_tag = "👑 VIP" if is_vip_bool else "Free"
 
-        # Receipt Template
-        msg = f"""
-<b>🧾 TRANSACTION RECEIPT</b>
-<code>
-───────────────
-💳 Card: {cc}
-🏦 Bank: {bank}
-💰 Amt:  $1.00
-✅ Sts:  {status}
-───────────────
-</code>
-<b>👑 Member: {vip_tag}</b>
-<b>🤖 Dev: @aymen_1144</b>
+    ko = bot.reply_to(message, t["processing_one"].format(cc=cc_data)).message_id
+    
+    # خصم نقطة فقط إذا لم يكن VIP
+    if not is_vip_bool:
+        update_user_data(user_id, points=-1)
+        
+    try:
+        try: req = requests.get('https://bins.antipublic.cc/bins/'+cc_data[:6]).json()
+        except: req = {}
+        brand = req.get('brand', 'Unknown'); card_type = req.get('type', 'Unknown')
+        country = req.get('country_name', 'Unknown'); country_flag = req.get('country_flag', '')
+        bank = req.get('bank', 'Unknown')
+        start_time = time.time()
+        try: last = str(Tele(cc_data))
+        except Exception as e: print(e); last = 'Error'
+        execution_time = time.time() - start_time
+        
+        # Badge in result
+        user_tag = f"@{message.from_user.username}" if message.from_user.username else message.from_user.first_name
+        vip_tag = "👑" if is_vip_bool else ""
+        
+        msg_template = """
+✨✨ 𝐂𝐀𝐑𝐃 𝐂𝐇𝐄𝐂𝐊 𝐑𝐄𝐒𝐔𝐋𝐓 ✨✨
+━━━━━━━━━━━━━━━━━━
+💳 <b>𝐂𝐀𝐑𝐃</b>: <code>{cc}</code>
+[ϟ] <b>𝐑𝐄𝐒𝐏𝐎𝐍𝐒𝐄</b>: <code>{response}</code>
+━━━━━━━━━━━━━━━━━━
+🏦 <b>𝐁𝐈𝐍</b>: <code>{cc[:6]} - {card_type} - {brand}</code>
+🏛 <b>𝐁𝐀𝐍𝐊</b>: <code>{bank}</code>
+🌍 <b>𝐂𝐎𝐔𝐍𝐓𝐑𝐘</b>: <code>{country} {country_flag}</code>
+⏱ <b>𝐓𝐈𝐌𝐄</b>: <code>{time:.1f} sec</code>
+━━━━━━━━━━━━━━━━━━
+👤 <b>By:</b> {user_tag} {vip_tag}
+🤖 <b>Bot By:</b> @aymen_1144
 """
-        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=msg)
+        if 'Donation Successful!' in last or 'Approved' in last:
+            res_msg = msg_template.format(cc=cc_data, response="✅ Charged $1 🔥", card_type=card_type, brand=brand, bank=bank, country=country, country_flag=country_flag, time=execution_time, user_tag=user_tag, vip_tag=vip_tag)
+            bot.reply_to(message, res_msg)
+        elif 'insufficient funds' in last:
+            res_msg = msg_template.format(cc=cc_data, response="📉 Low Funds", card_type=card_type, brand=brand, bank=bank, country=country, country_flag=country_flag, time=execution_time, user_tag=user_tag, vip_tag=vip_tag)
+            bot.reply_to(message, res_msg)
+        elif 'security code is incorrect' in last:
+            res_msg = msg_template.format(cc=cc_data, response="⚠️ CCN Match", card_type=card_type, brand=brand, bank=bank, country=country, country_flag=country_flag, time=execution_time, user_tag=user_tag, vip_tag=vip_tag)
+            bot.reply_to(message, res_msg)
+        else:
+            res_msg = msg_template.format(cc=cc_data, response="❌ Declined", card_type=card_type, brand=brand, bank=bank, country=country, country_flag=country_flag, time=execution_time, user_tag=user_tag, vip_tag=vip_tag)
+        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=res_msg)
     except Exception as e:
-        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text="❌ Error")
+        print(f"Error in single check: {e}")
+        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text="❌ Error checking card.")
 
 @bot.callback_query_handler(func=lambda call: call.data == 'stop')
-def stop_call(call):
-    with open("stop.stop", "w") as f: pass
+def menu_callback(call):
+    with open("stop.stop", "w") as file: pass
 
-# --- 3. PROGRESS BAR (File Check) ---
-@bot.message_handler(content_types=["document"])
-def chk_file(message):
-    uid = message.from_user.id
-    if not check_subscription(uid): return
-    
-    lang = get_lang(uid); t = TEXTS[lang]
-    user_data = get_user_data(uid)
-    is_vip_bool = user_data["vip_expire"] > time.time()
-    
-    ko = bot.reply_to(message, t["wait"]).message_id
-    
-    try:
-        file_info = bot.get_file(message.document.file_id)
-        downloaded = bot.download_file(file_info.file_path)
-        with open("combo.txt", "wb") as f: f.write(downloaded)
-    except: return
+@bot.message_handler(commands=["points"])
+def points_cmd(message):
+    show_main_menu(message.chat.id, message.from_user.id) # Just show menu
 
-    with open("combo.txt", "r") as f: lines = f.readlines()
-    total = len(lines)
-    
-    if not is_vip_bool and user_data["points"] < total:
-        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=t["no_points"])
-        return
-        
-    if not is_vip_bool: update_user_data(uid, points=-total)
-    
-    # Init Stats
-    live = 0; die = 0; checked = 0
-    stop_markup = types.InlineKeyboardMarkup()
-    stop_markup.add(types.InlineKeyboardButton(t["stop"], callback_data="stop"))
-    
-    for i, cc in enumerate(lines):
-        if os.path.exists("stop.stop"):
-            os.remove("stop.stop")
-            bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text="🛑 STOPPED")
-            return
-            
-        cc = cc.strip()
-        if not cc: continue
-        
-        # Check Card logic here (Simplified for loop)
-        try: res = str(Tele(cc))
-        except: res = "Error"
-        
-        if 'Approved' in res: live += 1
-        else: die += 1
-        checked += 1
-        
-        # --- UPDATE PROGRESS BAR (Every 5 cards) ---
-        if i % 5 == 0 or i == total - 1:
-            bar = get_progress_bar(checked, total)
-            msg = f"""
-<b>📂 FILE CHECKING...</b>
-{bar}
-━━━━━━━━━━━━━━
-<b>✅ Live:</b> {live}
-<b>❌ Die:</b>  {die}
-<b>📉 Total:</b> {total}
-━━━━━━━━━━━━━━
-<b>🚀 Processing:</b> <code>{cc[:10]}...</code>
-"""
-            try: bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=msg, reply_markup=stop_markup)
-            except: pass
-
-    bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=f"✅ <b>DONE!</b>\nLive: {live} | Die: {die}")
+@bot.message_handler(commands=["cmds", "help"])
+def commands_handler(message):
+    user_id = message.from_user.id
+    lang = get_lang(user_id)
+    t = TEXTS[lang]
+    msg_text = t["cmds_msg"]
+    if user_id == ADMIN_ID:
+        admin_txt = "\n\n👮‍♂️ <b>Dev:</b>\n⚡ <b>/give ID PTS</b>\n⚡ <b>/vip ID HOURS</b>"
+        msg_text += admin_txt
+    bot.reply_to(message, msg_text)
 
 if __name__ == "__main__":
-    keep_alive()
-    bot.infinity_polling()
+    print("🤖 Bot started...")
+    keep_alive() 
+    bot.infinity_polling(timeout=10, long_polling_timeout=5)
