@@ -2,38 +2,33 @@ import requests
 import telebot, time
 from telebot import types
 from telebot.types import LabeledPrice
-from gatet import Tele  # تأكد أن ملف gatet.py مرفوع بجانب هذا الملف
+from gatet import Tele  # هام: هذا يستدعي ملف gatet.py
 import os
 import json
 from flask import Flask
 from threading import Thread
 
-# ==========================================
-# 1. كود السيرفر الوهمي (Render Fix)
-# هذا الجزء هو المسؤول عن إبقاء البوت يعمل على Render
-# ==========================================
 app = Flask('')
 
 @app.route('/')
 def home():
-    return "<b>Telegram Bot is Running... 🚀</b>"
+    return "<b>I am alive! Bot is running... ✅</b>"
 
 def run():
-    # Render يعين منفذ (Port) تلقائياً، هذا الكود يستقبله
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
+    app.run(host='0.0.0.0', port=8080)
 
 def keep_alive():
     t = Thread(target=run)
     t.start()
 
 # ==========================================
-# 2. إعدادات البوت والملفات
+# 2. إعدادات البوت
 # ==========================================
 
 TOKEN = '8305232757:AAF-rxugmGHIbpIqiGlWFO27jZGY9Uh4CtA' 
-ADMIN_ID = 7170023644 
+ADMIN_ID = 7170023644  # ايديك (المطور) لاستخدام أمر give
 REQUIRED_CHANNEL = "@freecrunchyrollaccountt" 
-WELCOME_IMAGE_PATH = "welcome.jpg" # يجب رفع الصورة بهذا الاسم بجانب الملف
+WELCOME_IMAGE_PATH = "welcome.jpg" 
 
 bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
 
@@ -88,7 +83,6 @@ TEXTS = {
 """,
         "chk_usage": "⚠️ <b>طريقة الاستخدام خطأ!</b>\nأرسل الأمر مع البطاقة هكذا:\n<code>/chk XXXXXXXXXXXXXXXX|MM|YY|CVV</code>",
         "processing_one": "⚡ <b>جاري فحص البطاقة...</b>\n<code>{cc}</code>",
-        
         "buy_title": "💎 <b>قائمة شراء النقاط</b>\nاختر العرض المناسب لك، يمكنك الدفع مباشرة عبر نجوم تليجرام (Stars) أو التواصل مع المطور.",
         "btn_contact": "تواصل مع المطور 👨‍💻",
         "buy_success": "✅ <b>تم الدفع بنجاح!</b>\nتمت إضافة <code>{amount}</code> نقطة إلى رصيدك.\nرصيدك الحالي: {balance}",
@@ -142,7 +136,6 @@ Ex: <code>/chk 444444444444|01|26|123</code>
 """,
         "chk_usage": "⚠️ <b>Wrong Usage!</b>\nUse command like this:\n<code>/chk XXXXXXXXXXXXXXXX|MM|YY|CVV</code>",
         "processing_one": "⚡ <b>Checking card...</b>\n<code>{cc}</code>",
-
         "buy_title": "💎 <b>Buy Points Menu</b>\nChoose a package below. Pay instantly via Telegram Stars or contact the developer.",
         "btn_contact": "Contact Developer 👨‍💻",
         "buy_success": "✅ <b>Payment Successful!</b>\nAdded <code>{amount}</code> points to your account.\nCurrent Balance: {balance}",
@@ -462,6 +455,9 @@ def points_cmd(message):
     pts = get_points(message.from_user.id)
     bot.reply_to(message, TEXTS[lang]["points_msg"].format(pts=pts))
 
+# ==========================================
+# 3. أمر إضافة النقاط (الخاص بالمطور)
+# ==========================================
 @bot.message_handler(commands=["give"])
 def give_cmd(message):
     if message.from_user.id != ADMIN_ID: return
@@ -575,6 +571,6 @@ def main(message):
     bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text='✅ CHECK COMPLETED | انتهى الفحص\n🤖 DEV: @aymen_1144')
 
 if __name__ == "__main__":
-    print("🤖 Bot started...")
+    print("🤖 Bot started on Replit...")
     keep_alive() # تشغيل السيرفر الوهمي هنا لكي لا يتوقف البوت
     bot.infinity_polling(timeout=10, long_polling_timeout=5)
