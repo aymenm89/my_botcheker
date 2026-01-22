@@ -603,7 +603,7 @@ def single_check_handler(message):
         bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=res_msg)
     except Exception as e:
         print(f"Error in single check: {e}")
-        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text="❌ Error checking card.")
+        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=f"❌ Error checking card: {e}")
 
 @bot.callback_query_handler(func=lambda call: call.data == 'stop')
 def menu_callback(call):
