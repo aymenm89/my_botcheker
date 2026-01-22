@@ -624,6 +624,87 @@ def commands_handler(message):
         msg_text += admin_txt
     bot.reply_to(message, msg_text)
 
+# --- 7. FILE CHECKER (COMBO) + PROGRESS BAR ---
+@bot.message_handler(content_types=["document"])
+def chk_file(message):
+    uid = message.from_user.id
+    if not check_subscription(uid):
+        show_force_sub_message(message.chat.id, uid)
+        return
+    
+    lang = get_lang(uid); t = TEXTS[lang]
+    user_data = get_user_data(uid)
+    is_vip_bool = user_data["vip_expire"] > time.time()
+    
+    ko = bot.reply_to(message, t["wait"]).message_id
+    
+    try:
+        file_info = bot.get_file(message.document.file_id)
+        downloaded = bot.download_file(file_info.file_path)
+        with open("combo.txt", "wb") as f: f.write(downloaded)
+    except:
+        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text="❌ Error downloading file.")
+        return
+
+    with open("combo.txt", "r") as f: lines = f.readlines()
+    total = len(lines)
+    
+    # Check points if not VIP
+    if not is_vip_bool and user_data["points"] < total:
+        bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=t["no_points"])
+        return
+        
+    # Deduct points if not VIP
+    if not is_vip_bool: update_user_data(uid, points=-total)
+    
+    # Init Stats
+    live = 0; die = 0; checked = 0
+    stop_markup = types.InlineKeyboardMarkup()
+    stop_markup.add(types.InlineKeyboardButton(t["stop"], callback_data="stop"))
+    
+    # Helper for progress bar
+    def get_progress_bar(current, total, length=10):
+        percent = (current / total) 
+        filled_length = int(length * percent)
+        bar = '█' * filled_length + '░' * (length - filled_length)
+        return f"[{bar}] {int(percent * 100)}%"
+
+    for i, cc in enumerate(lines):
+        if os.path.exists("stop.stop"):
+            try: os.remove("stop.stop")
+            except: pass
+            bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text="🛑 STOPPED")
+            return
+            
+        cc = cc.strip()
+        if not cc: continue
+        
+        # Check Card logic
+        try: res = str(Tele(cc))
+        except: res = "Error"
+        
+        if 'Approved' in res or 'Succeeded' in res: live += 1
+        else: die += 1
+        checked += 1
+        
+        # Update UI every 5 cards or at end
+        if i % 5 == 0 or i == total - 1:
+            bar = get_progress_bar(checked, total)
+            msg = f"""
+<b>📂 FILE CHECKING...</b>
+{bar}
+━━━━━━━━━━━━━━
+<b>✅ Live:</b> {live}
+<b>❌ Die:</b>  {die}
+<b>📉 Total:</b> {total}
+━━━━━━━━━━━━━━
+<b>🚀 Processing:</b> <code>{cc[:10]}...</code>
+"""
+            try: bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=msg, reply_markup=stop_markup)
+            except: pass
+
+    bot.edit_message_text(chat_id=message.chat.id, message_id=ko, text=f"✅ <b>DONE!</b>\nLive: {live} | Die: {die}")
+
 if __name__ == "__main__":
     print("🤖 Bot started...")
     keep_alive() 
